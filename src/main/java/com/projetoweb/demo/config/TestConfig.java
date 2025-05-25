@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.projetoweb.demo.entities.Category;
 import com.projetoweb.demo.entities.Order;
 import com.projetoweb.demo.entities.OrderItem;
+import com.projetoweb.demo.entities.Payment;
 import com.projetoweb.demo.entities.Product;
 import com.projetoweb.demo.entities.User;
 import com.projetoweb.demo.entities.enums.OrderStatus;
@@ -81,6 +82,13 @@ public class TestConfig implements CommandLineRunner {
         OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 
         orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+ 
+        //Para a associação 1:1, não é o repository da própria relação dependente.
+        Payment pay1 = new Payment(null,Instant.parse("2019-06-20T21:53:07Z"), o1);
+
+        o1.setPayment(pay1);
+
+        orderRepository.save(o1);
 
     }
 
